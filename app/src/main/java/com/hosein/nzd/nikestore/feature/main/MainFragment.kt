@@ -29,6 +29,11 @@ class MainFragment : NikeFragment() {
         mainViewModel.productLiveData.observe(this){
             Log.i("MainFragments", "onViewCreated: $it")
         }
+
+        mainViewModel.progressBraLiveData.observe(this){
+            setProgressIndicator(it)
+        }
+
     }
 
 }

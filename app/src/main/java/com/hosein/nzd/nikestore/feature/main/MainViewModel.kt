@@ -17,9 +17,11 @@ class MainViewModel(private val productRepository: ProductRepository):NikeViewMo
     var productLiveData = MutableLiveData<List<Product>>()
 
     init {
+        progressBraLiveData.value = true
         productRepository.getProduct()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
+            .doFinally{ progressBraLiveData.value = false }
             .subscribe(object : SingleObserver<List<Product>>{
                 override fun onSubscribe(d: Disposable) {
                     disposable.add(d)
