@@ -13,6 +13,8 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainFragment : NikeFragment() {
 
+    private val mainViewModel : MainViewModel by viewModel()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -23,6 +25,10 @@ class MainFragment : NikeFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        mainViewModel.productLiveData.observe(this){
+            Log.i("MainFragments", "onViewCreated: $it")
+        }
     }
 
 }

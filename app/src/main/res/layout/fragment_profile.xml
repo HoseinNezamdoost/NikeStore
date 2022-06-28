@@ -8,5 +8,5 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:textAppearance="?textAppearanceHeadline1"
-        android:text="Main"/>
+        android:text="Profile"/>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
