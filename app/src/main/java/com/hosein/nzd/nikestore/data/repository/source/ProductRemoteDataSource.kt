@@ -7,7 +7,7 @@ import io.reactivex.rxjava3.core.Single
 
 class ProductRemoteDataSource(private val apiService: ApiService) : ProductDataSource {
 
-    override fun getProduct(): Single<List<Product>> = apiService.getProduct()
+    override fun getProduct(): Single<List<Product>> = apiService.getProducts()
 
     override fun getFavoriteProduct(): Single<List<Product>> {
         TODO("Not yet implemented")

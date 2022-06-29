@@ -30,5 +30,7 @@
         <item name="textAppearanceOverline">@style/TextAppearance.MyTheme.Overline</item>
         <!-- Customize your theme here. -->
         <item name="bottomNavigationStyle">@style/MyBottomNavigationMainStyle</item>
+        <item name="myDivider">@color/black</item>
+        <item name="myGray">@color/darkGray</item>
     </style>
 </resources>
