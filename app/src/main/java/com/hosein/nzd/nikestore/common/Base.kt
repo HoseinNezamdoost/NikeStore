@@ -45,7 +45,9 @@ interface NikeView {
     val viewContext : Context?
 
     fun setProgressIndicator(mostShow: Boolean){
+        //rootView != null
         rootView?.let {
+            //viewContext != null
             viewContext?.let {viewContext->
                 var loadingView = it.findViewById<View>(R.id.loadingView)
                 if (loadingView == null && mostShow){

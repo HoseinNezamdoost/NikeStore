@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-android-extensions'
 }
 
 android {
@@ -52,4 +53,6 @@ dependencies {
     implementation "androidx.navigation:navigation-runtime-ktx:$nav_version"
 
     implementation 'com.facebook.fresco:fresco:2.6.0'
+
+    implementation 'com.tbuonomo:dotsindicator:4.3'
 }

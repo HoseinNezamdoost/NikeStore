@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layoutDirection="rtl">
 
     <androidx.core.widget.NestedScrollView
@@ -16,24 +17,50 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="56dp"
-                android:src="@drawable/ic_nike_logo"
-                android:layout_gravity="center_horizontal"/>
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/ic_nike_logo" />
 
             <EditText
                 android:id="@+id/edt_search_main"
                 android:layout_width="match_parent"
                 android:layout_height="46dp"
-                android:hint="جستوجو"
-                android:textSize="15dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:background="@drawable/background_edt_search"
                 android:drawableStart="@drawable/ic_search"
                 android:drawablePadding="8dp"
-                android:textColorHint="?colorSecondary"
-                android:textColor="?colorSecondary"
-                android:paddingEnd="12dp"
+                android:hint="جستوجو"
                 android:paddingStart="12dp"
-                android:background="@drawable/background_edt_search"
-                android:layout_marginEnd="24dp"
-                android:layout_marginStart="24dp"/>
+                android:paddingEnd="12dp"
+                android:textColor="?colorSecondary"
+                android:textColorHint="?colorSecondary"
+                android:textSize="15dp" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/sliderViewPager"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp" />
+
+                <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
+                    android:id="@+id/indicatorSlider"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:dotsColor="@color/darkGray"
+                    android:layout_gravity="center_horizontal|bottom"
+                    android:layout_marginBottom="8dp"
+                    app:dotsCornerRadius="8dp"
+                    app:dotsSize="8dp"
+                    app:dotsSpacing="4dp"
+                    app:dotsWidthFactor="3 "
+                    app:selectedDotColor="@color/black"
+                    app:progressMode="false" />
+
+            </FrameLayout>
 
         </LinearLayout>
 
