@@ -2,24 +2,28 @@ package com.hosein.nzd.nikestore.feature.main
 
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.hosein.nzd.nikestore.R
 import com.hosein.nzd.nikestore.common.NikeFragment
+import com.hosein.nzd.nikestore.common.NikeViewModel.Companion.progressBraLiveData
 import com.hosein.nzd.nikestore.common.convertDpToPixel
+import com.hosein.nzd.nikestore.data.Product
 import kotlinx.android.synthetic.main.fragment_main.*
 import kotlinx.coroutines.Runnable
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import java.sql.Time
-import java.util.*
-import kotlin.concurrent.thread
+import kotlin.collections.ArrayList
 
 class MainFragment : NikeFragment() {
 
     private val mainViewModel: MainViewModel by viewModel()
+    val mainProductAdapter :MainProductAdapter by inject()
+    val mainProductAdapterPopular :MainProductAdapterPopular by inject()
     val handler = Handler()
     lateinit var localVariableRunnable : Runnable
 
@@ -34,8 +38,20 @@ class MainFragment : NikeFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        mainViewModel.productLiveData.observe(viewLifecycleOwner) {
-            Log.i("MainFragments", "product: $it")
+        popular_rc.layoutManager = LinearLayoutManager(requireContext() , RecyclerView.HORIZONTAL , false)
+        popular_rc.adapter = mainProductAdapterPopular
+
+        lastProduct_rc.layoutManager = LinearLayoutManager(requireContext() , RecyclerView.HORIZONTAL , false)
+        lastProduct_rc.adapter = mainProductAdapter
+
+        //for observe popular product
+        mainViewModel.productLiveDataPopular.observe(viewLifecycleOwner){
+            mainProductAdapterPopular.products = it as ArrayList<Product>
+        }
+
+        //for observe last product
+        mainViewModel.productLiveDataLast.observe(viewLifecycleOwner) {
+            mainProductAdapter.productsLast = it as ArrayList<Product>
         }
 
         //for observe banner data
@@ -44,12 +60,14 @@ class MainFragment : NikeFragment() {
             val mainBannerAdapter = MainBannerAdapter(this, it)
             sliderViewPager.adapter = mainBannerAdapter
 
+            //(viewPagerWith * heightImage) / widthImage
+            sliderViewPager.post {
+                val viewPagerHeight = ((sliderViewPager.width - convertDpToPixel(32f , requireContext())).toInt() * 173) / 328
+                sliderViewPager.layoutParams.height = viewPagerHeight
+            }
+
             //indicator for slider
             indicatorSlider.setViewPager2(sliderViewPager)
-
-            //(viewPagerWith * heightImage) / widthImage
-            val viewPagerHeight = ((sliderViewPager.width - convertDpToPixel(32f , requireContext())).toInt() * 173) / 328
-            sliderViewPager.layoutParams.height = viewPagerHeight
 
             //for swipe auto on slider
             val runnable = Runnable {
@@ -70,7 +88,7 @@ class MainFragment : NikeFragment() {
         }
 
         //for observe on progressBar witch loading or no loading
-        mainViewModel.progressBraLiveData.observe(viewLifecycleOwner) {
+        progressBraLiveData.observe(viewLifecycleOwner) {
             setProgressIndicator(it)
         }
 
@@ -79,12 +97,12 @@ class MainFragment : NikeFragment() {
     //for remove (shutdown) slider
     override fun onStop() {
         super.onStop()
-        //handler.removeCallbacks(localVariableRunnable)
+        handler.removeCallbacks(localVariableRunnable)
     }
 
     override fun onPause() {
         super.onPause()
-        //handler.postDelayed(localVariableRunnable , 2000 )
+        handler.postDelayed(localVariableRunnable , 2000 )
     }
 
 }

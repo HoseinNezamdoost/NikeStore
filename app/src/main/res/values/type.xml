@@ -40,6 +40,7 @@
     <style name="TextAppearance.MyTheme.Body1" parent="TextAppearance.MaterialComponents.Body1">
         <item name="android:textColor">@color/black</item>
         <item name="android:textSize">14sp</item>
+        <item name="fontFamily">@font/yekan</item>
         <!--Your custom type style here-->
     </style>
 

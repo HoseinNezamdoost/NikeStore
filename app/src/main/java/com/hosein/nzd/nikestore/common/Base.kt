@@ -29,10 +29,12 @@ abstract class NikeFragment : Fragment(), NikeView {
 
 }
 
- abstract class NikeViewModel : ViewModel() {
+abstract class NikeViewModel : ViewModel() {
 
-    val disposable = CompositeDisposable()
-    var progressBraLiveData = MutableLiveData<Boolean>()
+    companion object{
+        val disposable = CompositeDisposable()
+        var progressBraLiveData = MutableLiveData<Boolean>()
+    }
 
     override fun onCleared() {
         disposable.clear()
@@ -41,20 +43,21 @@ abstract class NikeFragment : Fragment(), NikeView {
 }
 
 interface NikeView {
-    val rootView : CoordinatorLayout?
-    val viewContext : Context?
+    val rootView: CoordinatorLayout?
+    val viewContext: Context?
 
-    fun setProgressIndicator(mostShow: Boolean){
+    fun setProgressIndicator(mostShow: Boolean) {
         //rootView != null
         rootView?.let {
             //viewContext != null
-            viewContext?.let {viewContext->
+            viewContext?.let { viewContext ->
                 var loadingView = it.findViewById<View>(R.id.loadingView)
-                if (loadingView == null && mostShow){
-                    loadingView = LayoutInflater.from(viewContext).inflate(R.layout.loading_view , it , false)
+                if (loadingView == null && mostShow) {
+                    loadingView =
+                        LayoutInflater.from(viewContext).inflate(R.layout.loading_view, it, false)
                     it.addView(loadingView)
                 }
-                loadingView?.visibility = if(mostShow) View.VISIBLE else View.GONE
+                loadingView?.visibility = if (mostShow) View.VISIBLE else View.GONE
             }
         }
     }

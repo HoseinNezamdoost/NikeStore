@@ -9,6 +9,8 @@ import com.hosein.nzd.nikestore.data.repository.ProductRepositoryImpl
 import com.hosein.nzd.nikestore.data.repository.source.BannerRemoteDataSource
 import com.hosein.nzd.nikestore.data.repository.source.ProductLocalDataSource
 import com.hosein.nzd.nikestore.data.repository.source.ProductRemoteDataSource
+import com.hosein.nzd.nikestore.feature.main.MainProductAdapter
+import com.hosein.nzd.nikestore.feature.main.MainProductAdapterPopular
 import com.hosein.nzd.nikestore.feature.main.MainViewModel
 import com.hosein.nzd.nikestore.services.http.createApiServiceInstance
 import com.hosein.nzd.nikestore.services.loadImage.FrescoLoadImageService
@@ -30,6 +32,8 @@ class App : Application() {
             single <LoadImageService>{ FrescoLoadImageService() }
             factory <ProductRepository> { ProductRepositoryImpl(ProductRemoteDataSource(get()) , ProductLocalDataSource()) }
             factory <BannerRepository>{ BannerRepositoryImpl(BannerRemoteDataSource(get())) }
+            factory { MainProductAdapter(get()) }
+            factory { MainProductAdapterPopular(get()) }
             viewModel { MainViewModel(get() , get()) }
         }
 

@@ -10,6 +10,7 @@ import android.view.View
 import androidx.dynamicanimation.animation.DynamicAnimation
 import androidx.dynamicanimation.animation.SpringAnimation
 import androidx.dynamicanimation.animation.SpringForce
+import java.text.DecimalFormat
 
 fun convertDpToPixel(dp: Float, context: Context?): Float {
     return if (context != null) {
@@ -27,7 +28,9 @@ fun formatPrice(
     unitRelativeSizeFactor: Float = 0.7f
 ): SpannableString {
     val currencyLabel="تومان"
-    val spannableString = SpannableString("$price $currencyLabel")
+    val desc = DecimalFormat("###,###")
+    val response = desc.format(price)
+    val spannableString = SpannableString("$response $currencyLabel")
     spannableString.setSpan(
         RelativeSizeSpan(unitRelativeSizeFactor),
         spannableString.indexOf(currencyLabel),

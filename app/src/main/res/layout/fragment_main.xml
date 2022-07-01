@@ -62,6 +62,74 @@
 
             </FrameLayout>
 
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:paddingEnd="12dp"
+                android:paddingStart="12dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/last_product"
+                    android:layout_gravity="center_vertical|start"
+                    android:textAppearance="@style/TextAppearance.MyTheme.Body1"/>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/button_viewAll_last"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|end"
+                    android:text="@string/view_all"
+                    style="@style/Widget.Material3.Button.TextButton"
+                    android:textSize="14sp"/>
+
+            </FrameLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/lastProduct_rc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:clipToPadding="false"/>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:paddingEnd="12dp"
+                android:paddingStart="12dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/popular_product"
+                    android:layout_gravity="center_vertical|start"
+                    android:textAppearance="@style/TextAppearance.MyTheme.Body1"/>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/button_viewAll_popular"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|end"
+                    android:text="@string/view_all"
+                    style="@style/Widget.Material3.Button.TextButton"
+                    android:textSize="14sp"/>
+
+            </FrameLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/popular_rc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:clipToPadding="false"/>
+
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>
