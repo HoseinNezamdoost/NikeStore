@@ -7,4 +7,7 @@
     <string name="last_product">آخرین محصولات</string>
     <string name="popular_product">پر فروش ترین</string>
     <string name="view_all">مشاهده همه</string>
+    <string name="comments">نظرات کاربران</string>
+    <string name="insertComment">ثبت نظر</string>
+    <string name="viewAllComments">مشاهده همه نظرات</string>
 </resources>

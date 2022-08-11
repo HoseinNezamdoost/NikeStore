@@ -21,6 +21,8 @@ class MainProductAdapterPopular(val loadImageService: LoadImageService) : Recycl
             notifyDataSetChanged()
         }
 
+    var onClickProductPopular: OnClickProductPopular? = null
+
     inner class MainProductViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val imageIv : NikeImageView = itemView.findViewById(R.id.productIv)
         val titleTv : TextView = itemView.findViewById(R.id.productTitleTv)
@@ -36,7 +38,7 @@ class MainProductAdapterPopular(val loadImageService: LoadImageService) : Recycl
             previousPriceTv.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
 
             itemView.implementSpringAnimationTrait()
-            itemView.setOnClickListener {  }
+            itemView.setOnClickListener { onClickProductPopular?.onClickProductPopular(product) }
         }
 
     }
@@ -48,5 +50,9 @@ class MainProductAdapterPopular(val loadImageService: LoadImageService) : Recycl
     override fun onBindViewHolder(holder: MainProductViewHolder, position: Int) = holder.bindProduct(products[position])
 
     override fun getItemCount(): Int = products.size
+
+    interface OnClickProductPopular{
+        fun onClickProductPopular(product: Product)
+    }
 
 }

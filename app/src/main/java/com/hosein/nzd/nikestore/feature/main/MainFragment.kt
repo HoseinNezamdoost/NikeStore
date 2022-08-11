@@ -1,5 +1,6 @@
 package com.hosein.nzd.nikestore.feature.main
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.view.LayoutInflater
@@ -9,17 +10,19 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.hosein.nzd.nikestore.R
+import com.hosein.nzd.nikestore.common.EXTRA_KEY_ID
 import com.hosein.nzd.nikestore.common.NikeFragment
 import com.hosein.nzd.nikestore.common.NikeViewModel.Companion.progressBraLiveData
 import com.hosein.nzd.nikestore.common.convertDpToPixel
 import com.hosein.nzd.nikestore.data.Product
+import com.hosein.nzd.nikestore.feature.productActivity.ProductActivity
 import kotlinx.android.synthetic.main.fragment_main.*
 import kotlinx.coroutines.Runnable
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import kotlin.collections.ArrayList
 
-class MainFragment : NikeFragment() {
+class MainFragment : NikeFragment() , MainProductAdapter.OnProductListClickListener , MainProductAdapterPopular.OnClickProductPopular {
 
     private val mainViewModel: MainViewModel by viewModel()
     val mainProductAdapter :MainProductAdapter by inject()
@@ -37,6 +40,10 @@ class MainFragment : NikeFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        //initialize interface OnProductListClickListener in adapter
+        mainProductAdapter.onProductListClickListener = this
+        mainProductAdapterPopular.onClickProductPopular = this
 
         popular_rc.layoutManager = LinearLayoutManager(requireContext() , RecyclerView.HORIZONTAL , false)
         popular_rc.adapter = mainProductAdapterPopular
@@ -103,6 +110,20 @@ class MainFragment : NikeFragment() {
     override fun onPause() {
         super.onPause()
         handler.postDelayed(localVariableRunnable , 2000 )
+    }
+
+    //onClick for intent to product activity
+
+    override fun onClick(product: Product) {
+        startActivity(Intent(requireContext() , ProductActivity::class.java).apply {
+            putExtra(EXTRA_KEY_ID , product)
+        })
+    }
+
+    override fun onClickProductPopular(product: Product) {
+        startActivity(Intent(requireContext() , ProductActivity::class.java).apply {
+            putExtra(EXTRA_KEY_ID , product)
+        })
     }
 
 }

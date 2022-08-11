@@ -15,6 +15,8 @@ import com.hosein.nzd.nikestore.view.NikeImageView
 
 class MainProductAdapter(val loadImageService: LoadImageService) : RecyclerView.Adapter<MainProductAdapter.MainProductViewHolder>() {
 
+    var onProductListClickListener: OnProductListClickListener? = null
+
     var productsLast = ArrayList<Product>()
     set(value) {
         field = value
@@ -27,6 +29,7 @@ class MainProductAdapter(val loadImageService: LoadImageService) : RecyclerView.
         val previousPriceTv :TextView = itemView.findViewById(R.id.previousPriceTv)
         val currentPriceTv :TextView = itemView.findViewById(R.id.currentPriceTv)
 
+
         fun bindProduct(product: Product){
             loadImageService.load(imageIv , product.image)
             titleTv.text = product.title
@@ -36,7 +39,9 @@ class MainProductAdapter(val loadImageService: LoadImageService) : RecyclerView.
             previousPriceTv.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
 
             itemView.implementSpringAnimationTrait()
-            itemView.setOnClickListener {  }
+            itemView.setOnClickListener {
+                onProductListClickListener?.onClick(product)
+            }
         }
 
     }
@@ -49,4 +54,7 @@ class MainProductAdapter(val loadImageService: LoadImageService) : RecyclerView.
 
     override fun getItemCount(): Int = productsLast.size
 
+    interface OnProductListClickListener{
+        fun onClick(product: Product)
+    }
 }

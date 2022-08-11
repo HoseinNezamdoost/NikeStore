@@ -3,10 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Android Project New Elecomco/project/NikeStore/app/src/main/res/drawable/background_comment.xml" value="0.3245" />
         <entry key="..\:/Android Project New Elecomco/project/NikeStore/app/src/main/res/drawable/background_edt_search.xml" value="0.3315" />
         <entry key="..\:/Android Project New Elecomco/project/NikeStore/app/src/main/res/drawable/ic_back.xml" value="0.178" />
         <entry key="..\:/Android Project New Elecomco/project/NikeStore/app/src/main/res/drawable/ic_search.xml" value="0.3485" />
         <entry key="..\:/Android Project New Elecomco/project/NikeStore/app/src/main/res/layout/activity_main.xml" value="0.3328125" />
+        <entry key="..\:/Android Project New Elecomco/project/NikeStore/app/src/main/res/layout/activity_product.xml" value="0.33" />
         <entry key="..\:/Android Project New Elecomco/project/NikeStore/app/src/main/res/layout/banner_slider_main.xml" value="0.25" />
         <entry key="..\:/Android Project New Elecomco/project/NikeStore/app/src/main/res/layout/fragment_banner_slider.xml" value="0.284737067122702" />
         <entry key="..\:/Android Project New Elecomco/project/NikeStore/app/src/main/res/layout/fragment_blank.xml" value="0.16875" />

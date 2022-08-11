@@ -1,5 +1,9 @@
 package com.hosein.nzd.nikestore.data
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
 data class Product(
     var discount: Int,
     var id: Int,
@@ -8,7 +12,7 @@ data class Product(
     var price: Int,
     var status: Int,
     var title: String
-)
+):Parcelable
 
 const val SORT_LAST = 0
 const val SORT_POPULAR = 1
