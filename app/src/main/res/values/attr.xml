@@ -4,4 +4,10 @@
     <attr name="myDivider" format="color"/>
     <attr name="myGray" format="color"/>
 
+    <declare-styleable name="NikeToolbar">
+
+        <attr name="nk_title" format="string"/>
+
+    </declare-styleable>
+
 </resources>

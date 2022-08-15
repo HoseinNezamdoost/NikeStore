@@ -12,10 +12,9 @@ import androidx.viewpager2.widget.ViewPager2
 import com.hosein.nzd.nikestore.R
 import com.hosein.nzd.nikestore.common.EXTRA_KEY_ID
 import com.hosein.nzd.nikestore.common.NikeFragment
-import com.hosein.nzd.nikestore.common.NikeViewModel.Companion.progressBraLiveData
 import com.hosein.nzd.nikestore.common.convertDpToPixel
 import com.hosein.nzd.nikestore.data.Product
-import com.hosein.nzd.nikestore.feature.productActivity.ProductActivity
+import com.hosein.nzd.nikestore.feature.main.productActivity.ProductActivity
 import kotlinx.android.synthetic.main.fragment_main.*
 import kotlinx.coroutines.Runnable
 import org.koin.android.ext.android.inject
@@ -95,7 +94,7 @@ class MainFragment : NikeFragment() , MainProductAdapter.OnProductListClickListe
         }
 
         //for observe on progressBar witch loading or no loading
-        progressBraLiveData.observe(viewLifecycleOwner) {
+        mainViewModel.progressBraLiveData.observe(viewLifecycleOwner) {
             setProgressIndicator(it)
         }
 

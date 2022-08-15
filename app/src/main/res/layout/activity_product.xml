@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".feature.productActivity.ProductActivity"
+    tools:context=".feature.main.productActivity.ProductActivity"
     android:layoutDirection="rtl">
 
     <com.hosein.nzd.nikestore.view.scroll.ObservableScrollView
@@ -71,7 +71,7 @@
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="1000dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:paddingEnd="4dp"
                 android:paddingStart="4dp"
@@ -133,21 +133,22 @@
         android:layout_height="?actionBarSize"
         android:translationZ="5dp">
 
-        <ImageView
-            android:id="@+id/backBtn"
-            android:layout_width="wrap_content"
+        <com.hosein.nzd.nikestore.view.NikeToolbar
+            android:id="@+id/toolbarTitleNkProduct"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical|start"
-            android:layout_marginStart="16dp"
-            android:src="@drawable/ic_back" />
+            app:nk_title=" ">
 
-        <ImageView
-            android:id="@+id/favoriteBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end|center_vertical"
-            android:layout_marginEnd="16dp"
-            android:src="@drawable/ic_favorites" />
+            <ImageView
+                android:id="@+id/favoriteBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|center_vertical"
+                android:layout_marginEnd="16dp"
+                android:src="@drawable/ic_favorites" />
+
+        </com.hosein.nzd.nikestore.view.NikeToolbar>
+
     </FrameLayout>
 
     <com.google.android.material.card.MaterialCardView

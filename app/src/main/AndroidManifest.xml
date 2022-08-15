@@ -18,7 +18,10 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".feature.productActivity.ProductActivity"
+            android:name="com.hosein.nzd.nikestore.feature.main.productActivity.comment.ProductActivityComment"
+            android:exported="false" />
+        <activity
+            android:name="com.hosein.nzd.nikestore.feature.main.productActivity.ProductActivity"
             android:exported="false" />
         <activity
             android:name=".feature.main.MainActivity"

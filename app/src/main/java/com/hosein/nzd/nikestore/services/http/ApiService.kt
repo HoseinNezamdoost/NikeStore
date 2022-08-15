@@ -1,6 +1,7 @@
 package com.hosein.nzd.nikestore.services.http
 
 import com.hosein.nzd.nikestore.data.Banner
+import com.hosein.nzd.nikestore.data.Comment
 import com.hosein.nzd.nikestore.data.Product
 import hu.akarnokd.rxjava3.retrofit.RxJava3CallAdapterFactory
 import io.reactivex.rxjava3.core.Single
@@ -15,6 +16,10 @@ interface ApiService {
 
     @GET("banner/slider")
     fun getBanners(): Single<List<Banner>>
+
+    @GET("comment/list/")
+    fun getComment(@Query("product_id") id:Int):Single<List<Comment>>
+
 }
 
 fun createApiServiceInstance(): ApiService {

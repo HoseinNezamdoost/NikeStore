@@ -28,6 +28,7 @@ class MainViewModel(productRepository: ProductRepository, bannerRepository: Bann
         bannerRepository.getBanners()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
+            .doFinally { progressBraLiveData.value = false }
             .subscribe(object : NikeSingleObservable<List<Banner>>(disposable) {
                 override fun onSuccess(t: List<Banner>) {
                     bannerLiveData.value = t
