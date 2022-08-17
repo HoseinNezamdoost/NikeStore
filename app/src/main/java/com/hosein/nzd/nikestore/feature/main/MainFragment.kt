@@ -11,20 +11,25 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.hosein.nzd.nikestore.R
 import com.hosein.nzd.nikestore.common.EXTRA_KEY_ID
+import com.hosein.nzd.nikestore.common.EXTRA_PASS
 import com.hosein.nzd.nikestore.common.NikeFragment
 import com.hosein.nzd.nikestore.common.convertDpToPixel
 import com.hosein.nzd.nikestore.data.Product
+import com.hosein.nzd.nikestore.data.SORT_LAST
+import com.hosein.nzd.nikestore.data.SORT_POPULAR
 import com.hosein.nzd.nikestore.feature.main.productActivity.ProductActivity
+import com.hosein.nzd.nikestore.feature.main.productList.ProductListActivity
 import kotlinx.android.synthetic.main.fragment_main.*
 import kotlinx.coroutines.Runnable
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 import kotlin.collections.ArrayList
 
 class MainFragment : NikeFragment() , MainProductAdapter.OnProductListClickListener , MainProductAdapterPopular.OnClickProductPopular {
 
     private val mainViewModel: MainViewModel by viewModel()
-    val mainProductAdapter :MainProductAdapter by inject()
+    val mainProductAdapter :MainProductAdapter by inject{ parametersOf(VIEW_TYPE_ROUND)}
     val mainProductAdapterPopular :MainProductAdapterPopular by inject()
     val handler = Handler()
     lateinit var localVariableRunnable : Runnable
@@ -96,6 +101,19 @@ class MainFragment : NikeFragment() , MainProductAdapter.OnProductListClickListe
         //for observe on progressBar witch loading or no loading
         mainViewModel.progressBraLiveData.observe(viewLifecycleOwner) {
             setProgressIndicator(it)
+        }
+
+        //intent to ProductListActivity
+        button_viewAll_last.setOnClickListener {
+            startActivity(Intent(requireContext() , ProductListActivity::class.java).apply {
+                putExtra(EXTRA_PASS , SORT_LAST)
+            })
+        }
+
+        button_viewAll_popular.setOnClickListener {
+            startActivity(Intent(requireContext() , ProductListActivity::class.java).apply {
+                putExtra(EXTRA_PASS , SORT_POPULAR)
+            })
         }
 
     }

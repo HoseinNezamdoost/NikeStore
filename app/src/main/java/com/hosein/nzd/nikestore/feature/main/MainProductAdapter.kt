@@ -13,7 +13,11 @@ import com.hosein.nzd.nikestore.data.Product
 import com.hosein.nzd.nikestore.services.loadImage.LoadImageService
 import com.hosein.nzd.nikestore.view.NikeImageView
 
-class MainProductAdapter(val loadImageService: LoadImageService) : RecyclerView.Adapter<MainProductAdapter.MainProductViewHolder>() {
+const val VIEW_TYPE_ROUND = 0
+const val VIEW_TYPE_SMALL = 1
+const val VIEW_TYPE_LARGE = 2
+
+class MainProductAdapter(var viewType: Int = VIEW_TYPE_ROUND, val loadImageService: LoadImageService) : RecyclerView.Adapter<MainProductAdapter.MainProductViewHolder>() {
 
     var onProductListClickListener: OnProductListClickListener? = null
 
@@ -46,8 +50,20 @@ class MainProductAdapter(val loadImageService: LoadImageService) : RecyclerView.
 
     }
 
+    override fun getItemViewType(position: Int): Int {
+        return viewType
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainProductViewHolder {
-        return MainProductViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_product , parent , false))
+
+        val viewType = when(viewType){
+            VIEW_TYPE_ROUND->R.layout.item_product
+            VIEW_TYPE_SMALL->R.layout.item_product_small
+            VIEW_TYPE_LARGE->R.layout.item_product_large
+            else -> throw IllegalAccessException("ViewType can not is empty")
+        }
+
+        return MainProductViewHolder(LayoutInflater.from(parent.context).inflate(viewType , parent , false))
     }
 
     override fun onBindViewHolder(holder: MainProductViewHolder, position: Int) = holder.bindProduct(productsLast[position])

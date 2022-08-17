@@ -10,6 +10,7 @@ import com.hosein.nzd.nikestore.feature.main.MainProductAdapterPopular
 import com.hosein.nzd.nikestore.feature.main.MainViewModel
 import com.hosein.nzd.nikestore.feature.main.productActivity.ProductActivityViewModel
 import com.hosein.nzd.nikestore.feature.main.productActivity.comment.ProductCommentViewModel
+import com.hosein.nzd.nikestore.feature.main.productList.ProductListViewModel
 import com.hosein.nzd.nikestore.services.http.createApiServiceInstance
 import com.hosein.nzd.nikestore.services.loadImage.FrescoLoadImageService
 import com.hosein.nzd.nikestore.services.loadImage.LoadImageService
@@ -31,11 +32,12 @@ class App : Application() {
             factory <ProductRepository> { ProductRepositoryImpl(ProductRemoteDataSource(get()) , ProductLocalDataSource()) }
             factory <BannerRepository>{ BannerRepositoryImpl(BannerRemoteDataSource(get())) }
             factory <CommentRepository>{ CommentRepositoryImpl(CommentRemoteDataSource(get())) }
-            factory { MainProductAdapter(get()) }
+            factory { (viewType:Int)->MainProductAdapter(viewType,get()) }
             factory { MainProductAdapterPopular(get()) }
             viewModel { MainViewModel(get() , get()) }
             viewModel {(bundle:Bundle)-> ProductActivityViewModel(bundle , get()) }
             viewModel { (sort:Int) -> ProductCommentViewModel(sort , get()) }
+            viewModel { (sort:Int) -> ProductListViewModel(sort , get())}
         }
 
         startKoin {
