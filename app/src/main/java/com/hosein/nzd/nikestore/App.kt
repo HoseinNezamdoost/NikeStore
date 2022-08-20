@@ -32,10 +32,11 @@ class App : Application() {
             factory <ProductRepository> { ProductRepositoryImpl(ProductRemoteDataSource(get()) , ProductLocalDataSource()) }
             factory <BannerRepository>{ BannerRepositoryImpl(BannerRemoteDataSource(get())) }
             factory <CommentRepository>{ CommentRepositoryImpl(CommentRemoteDataSource(get())) }
+            factory <CartRepository>{ CartRepositoryImpl(CartRemoteDataSource(get())) }
             factory { (viewType:Int)->MainProductAdapter(viewType,get()) }
             factory { MainProductAdapterPopular(get()) }
             viewModel { MainViewModel(get() , get()) }
-            viewModel {(bundle:Bundle)-> ProductActivityViewModel(bundle , get()) }
+            viewModel {(bundle:Bundle)-> ProductActivityViewModel(bundle , get() , get()) }
             viewModel { (sort:Int) -> ProductCommentViewModel(sort , get()) }
             viewModel { (sort:Int) -> ProductListViewModel(sort , get())}
         }

@@ -7,11 +7,16 @@ import com.hosein.nzd.nikestore.common.NikeSingleObservable
 import com.hosein.nzd.nikestore.common.NikeViewModel
 import com.hosein.nzd.nikestore.data.Comment
 import com.hosein.nzd.nikestore.data.Product
+import com.hosein.nzd.nikestore.data.repository.CartRepository
 import com.hosein.nzd.nikestore.data.repository.CommentRepository
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Completable
+import io.reactivex.rxjava3.core.CompletableObserver
+import io.reactivex.rxjava3.disposables.Disposable
+import io.reactivex.rxjava3.internal.operators.completable.CompletableToObservable
 import io.reactivex.rxjava3.schedulers.Schedulers
 
-class ProductActivityViewModel(bundle: Bundle , commentRepository: CommentRepository) : NikeViewModel() {
+class ProductActivityViewModel(bundle: Bundle , commentRepository: CommentRepository ,val cartRepository: CartRepository) : NikeViewModel() {
     val productLiveData = MutableLiveData<Product>()
     val commentLiveData = MutableLiveData<List<Comment>>()
 
@@ -28,5 +33,8 @@ class ProductActivityViewModel(bundle: Bundle , commentRepository: CommentReposi
                 }
             })
     }
+
+    fun onClickAddToCart() : Completable = 
+        cartRepository.addToCart(productLiveData.value!!.id).ignoreElement()
 
 }

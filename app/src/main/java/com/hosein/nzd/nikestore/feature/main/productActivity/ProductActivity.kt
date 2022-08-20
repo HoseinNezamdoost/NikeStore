@@ -5,17 +5,22 @@ import android.graphics.Paint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import com.hosein.nzd.nikestore.R
 import com.hosein.nzd.nikestore.common.EXTRA_PASS
 import com.hosein.nzd.nikestore.common.NikeActivity
+import com.hosein.nzd.nikestore.common.NikeCompletableObservable
 import com.hosein.nzd.nikestore.common.formatPrice
 import com.hosein.nzd.nikestore.data.Comment
 import com.hosein.nzd.nikestore.feature.main.productActivity.comment.ProductActivityComment
 import com.hosein.nzd.nikestore.services.loadImage.LoadImageService
 import com.hosein.nzd.nikestore.view.scroll.ObservableScrollViewCallbacks
 import com.hosein.nzd.nikestore.view.scroll.ScrollState
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_product.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -79,5 +84,17 @@ class ProductActivity : NikeActivity() {
 
             })
         }
+
+        addToCartBtn.setOnClickListener {
+            productActivityViewModel.onClickAddToCart()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(object : NikeCompletableObservable(productActivityViewModel.disposable){
+                    override fun onComplete() {
+                        Snackbar.make(rootView as CoordinatorLayout , "این محصول به سبد خرید اضافه شد" , Snackbar.LENGTH_LONG).show()
+                    }
+                })
+        }
+
     }
 }

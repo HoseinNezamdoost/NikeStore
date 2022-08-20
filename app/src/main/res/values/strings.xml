@@ -17,6 +17,7 @@
     <string name="sortPopular">پربازدیدترین</string>
     <string name="sortPriceHighToLow">گران ترین</string>
     <string name="sortPriceLowToHigh">ارزان ترین</string>
+    <string name="addToCart">افزودن به سبد خرید</string>
 
     <string-array name="sortArray">
         <item>@string/sortLatest</item>
