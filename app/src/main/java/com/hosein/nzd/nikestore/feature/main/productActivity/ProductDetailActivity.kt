@@ -2,7 +2,6 @@ package com.hosein.nzd.nikestore.feature.main.productActivity
 
 import android.content.Intent
 import android.graphics.Paint
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -26,9 +25,9 @@ import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
-class ProductActivity : NikeActivity() {
+class ProductDetailActivity : NikeActivity() {
 
-    val productActivityViewModel : ProductActivityViewModel by viewModel{parametersOf(intent.extras)}
+    val productDetailActivityViewModel : ProductDetailActivityViewModel by viewModel{parametersOf(intent.extras)}
     val loadImageService : LoadImageService by inject()
     val adapterComment = ProductAdapterComment()
 
@@ -36,7 +35,7 @@ class ProductActivity : NikeActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_product)
 
-        productActivityViewModel.productLiveData.observe(this){
+        productDetailActivityViewModel.productLiveData.observe(this){
             loadImageService.load(productIv , it.image)
             titleTv.text = it.title
             previousPriceTv.text = formatPrice(it.previous_price)
@@ -45,17 +44,17 @@ class ProductActivity : NikeActivity() {
             toolbarTitleTv.text = it.title
         }
 
-        productActivityViewModel.commentLiveData.observe(this){
+        productDetailActivityViewModel.commentLiveData.observe(this){
             adapterComment.comments = it as ArrayList<Comment>
             if(it.size > 5) viewAllCommentsBtn.visibility= View.VISIBLE
             viewAllCommentsBtn.setOnClickListener {
                 startActivity(Intent(this , ProductActivityComment::class.java).apply {
-                    putExtra(EXTRA_PASS , productActivityViewModel.productLiveData.value!!.id)
+                    putExtra(EXTRA_PASS , productDetailActivityViewModel.productLiveData.value!!.id)
                 })
             }
         }
 
-        productActivityViewModel.progressBraLiveData.observe(this){
+        productDetailActivityViewModel.progressBraLiveData.observe(this){
             setProgressIndicator(it)
         }
 
@@ -86,10 +85,10 @@ class ProductActivity : NikeActivity() {
         }
 
         addToCartBtn.setOnClickListener {
-            productActivityViewModel.onClickAddToCart()
+            productDetailActivityViewModel.onClickAddToCart()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(object : NikeCompletableObservable(productActivityViewModel.disposable){
+                .subscribe(object : NikeCompletableObservable(productDetailActivityViewModel.disposable){
                     override fun onComplete() {
                         Snackbar.make(rootView as CoordinatorLayout , "این محصول به سبد خرید اضافه شد" , Snackbar.LENGTH_LONG).show()
                     }
@@ -97,4 +96,10 @@ class ProductActivity : NikeActivity() {
         }
 
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        productDetailActivityViewModel.disposable.clear()
+    }
+
 }

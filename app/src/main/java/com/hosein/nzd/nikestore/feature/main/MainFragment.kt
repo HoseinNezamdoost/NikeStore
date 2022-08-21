@@ -17,7 +17,7 @@ import com.hosein.nzd.nikestore.common.convertDpToPixel
 import com.hosein.nzd.nikestore.data.Product
 import com.hosein.nzd.nikestore.data.SORT_LAST
 import com.hosein.nzd.nikestore.data.SORT_POPULAR
-import com.hosein.nzd.nikestore.feature.main.productActivity.ProductActivity
+import com.hosein.nzd.nikestore.feature.main.productActivity.ProductDetailActivity
 import com.hosein.nzd.nikestore.feature.main.productList.ProductListActivity
 import kotlinx.android.synthetic.main.fragment_main.*
 import kotlinx.coroutines.Runnable
@@ -132,13 +132,13 @@ class MainFragment : NikeFragment() , MainProductAdapter.OnProductListClickListe
     //onClick for intent to product activity
 
     override fun onClick(product: Product) {
-        startActivity(Intent(requireContext() , ProductActivity::class.java).apply {
+        startActivity(Intent(requireContext() , ProductDetailActivity::class.java).apply {
             putExtra(EXTRA_KEY_ID , product)
         })
     }
 
     override fun onClickProductPopular(product: Product) {
-        startActivity(Intent(requireContext() , ProductActivity::class.java).apply {
+        startActivity(Intent(requireContext() , ProductDetailActivity::class.java).apply {
             putExtra(EXTRA_KEY_ID , product)
         })
     }

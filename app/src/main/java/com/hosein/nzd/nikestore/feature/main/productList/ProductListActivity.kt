@@ -1,10 +1,7 @@
 package com.hosein.nzd.nikestore.feature.main.productList
 
-import android.content.DialogInterface
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -16,7 +13,7 @@ import com.hosein.nzd.nikestore.data.Product
 import com.hosein.nzd.nikestore.feature.main.MainProductAdapter
 import com.hosein.nzd.nikestore.feature.main.VIEW_TYPE_LARGE
 import com.hosein.nzd.nikestore.feature.main.VIEW_TYPE_SMALL
-import com.hosein.nzd.nikestore.feature.main.productActivity.ProductActivity
+import com.hosein.nzd.nikestore.feature.main.productActivity.ProductDetailActivity
 import kotlinx.android.synthetic.main.activity_product_list.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -87,7 +84,7 @@ class ProductListActivity : NikeActivity() , MainProductAdapter.OnProductListCli
     }
 
     override fun onClick(product: Product) {
-        startActivity(Intent(this , ProductActivity::class.java).apply {
+        startActivity(Intent(this , ProductDetailActivity::class.java).apply {
             putExtra(EXTRA_KEY_ID , product)
         })
     }

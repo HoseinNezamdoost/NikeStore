@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".feature.main.productActivity.ProductActivity"
+    tools:context=".feature.main.productActivity.ProductDetailActivity"
     android:layoutDirection="rtl">
 
     <com.hosein.nzd.nikestore.view.scroll.ObservableScrollView

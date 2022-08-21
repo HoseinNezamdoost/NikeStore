@@ -4,6 +4,7 @@ import android.util.Log
 import io.reactivex.rxjava3.core.SingleObserver
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.disposables.Disposable
+import org.greenrobot.eventbus.EventBus
 
 abstract class NikeSingleObservable<T>(val disposable: CompositeDisposable):SingleObserver<T> {
 
@@ -12,6 +13,6 @@ abstract class NikeSingleObservable<T>(val disposable: CompositeDisposable):Sing
     }
 
     override fun onError(e: Throwable) {
-        Log.i("error", "onError: $e")
+        EventBus.getDefault().post(NikeExceptionMapper.map(e))
     }
 }

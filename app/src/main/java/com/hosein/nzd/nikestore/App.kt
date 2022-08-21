@@ -8,12 +8,13 @@ import com.hosein.nzd.nikestore.data.repository.source.*
 import com.hosein.nzd.nikestore.feature.main.MainProductAdapter
 import com.hosein.nzd.nikestore.feature.main.MainProductAdapterPopular
 import com.hosein.nzd.nikestore.feature.main.MainViewModel
-import com.hosein.nzd.nikestore.feature.main.productActivity.ProductActivityViewModel
+import com.hosein.nzd.nikestore.feature.main.productActivity.ProductDetailActivityViewModel
 import com.hosein.nzd.nikestore.feature.main.productActivity.comment.ProductCommentViewModel
 import com.hosein.nzd.nikestore.feature.main.productList.ProductListViewModel
 import com.hosein.nzd.nikestore.services.http.createApiServiceInstance
 import com.hosein.nzd.nikestore.services.loadImage.FrescoLoadImageService
 import com.hosein.nzd.nikestore.services.loadImage.LoadImageService
+import org.greenrobot.eventbus.EventBus
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.startKoin
@@ -36,7 +37,7 @@ class App : Application() {
             factory { (viewType:Int)->MainProductAdapter(viewType,get()) }
             factory { MainProductAdapterPopular(get()) }
             viewModel { MainViewModel(get() , get()) }
-            viewModel {(bundle:Bundle)-> ProductActivityViewModel(bundle , get() , get()) }
+            viewModel {(bundle:Bundle)-> ProductDetailActivityViewModel(bundle , get() , get()) }
             viewModel { (sort:Int) -> ProductCommentViewModel(sort , get()) }
             viewModel { (sort:Int) -> ProductListViewModel(sort , get())}
         }

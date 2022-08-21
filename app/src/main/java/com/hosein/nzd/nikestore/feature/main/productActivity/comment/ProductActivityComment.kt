@@ -1,6 +1,5 @@
 package com.hosein.nzd.nikestore.feature.main.productActivity.comment
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -8,9 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.hosein.nzd.nikestore.R
 import com.hosein.nzd.nikestore.common.EXTRA_PASS
 import com.hosein.nzd.nikestore.common.NikeActivity
-import com.hosein.nzd.nikestore.common.NikeViewModel
 import com.hosein.nzd.nikestore.data.Comment
-import com.hosein.nzd.nikestore.feature.main.productActivity.ProductActivityViewModel
 import com.hosein.nzd.nikestore.feature.main.productActivity.ProductAdapterComment
 import kotlinx.android.synthetic.main.activity_product_comment.*
 import org.koin.androidx.viewmodel.ext.android.viewModel

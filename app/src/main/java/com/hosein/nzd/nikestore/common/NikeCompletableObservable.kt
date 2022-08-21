@@ -4,6 +4,7 @@ import android.util.Log
 import io.reactivex.rxjava3.core.CompletableObserver
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.disposables.Disposable
+import org.greenrobot.eventbus.EventBus
 
 abstract class NikeCompletableObservable(val compositeDisposable: CompositeDisposable) : CompletableObserver {
     override fun onSubscribe(d: Disposable) {
@@ -11,6 +12,6 @@ abstract class NikeCompletableObservable(val compositeDisposable: CompositeDispo
     }
 
     override fun onError(e: Throwable) {
-        Log.e("NikeCompletableObservable", "onError: $e")
+        EventBus.getDefault().post(NikeExceptionMapper.map(e))
     }
 }

@@ -16,7 +16,7 @@ import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.internal.operators.completable.CompletableToObservable
 import io.reactivex.rxjava3.schedulers.Schedulers
 
-class ProductActivityViewModel(bundle: Bundle , commentRepository: CommentRepository ,val cartRepository: CartRepository) : NikeViewModel() {
+class ProductDetailActivityViewModel(bundle: Bundle, commentRepository: CommentRepository, val cartRepository: CartRepository) : NikeViewModel() {
     val productLiveData = MutableLiveData<Product>()
     val commentLiveData = MutableLiveData<List<Comment>>()
 
