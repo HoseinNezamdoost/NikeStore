@@ -19,6 +19,17 @@
     <string name="sortPriceLowToHigh">ارزان ترین</string>
     <string name="addToCart">افزودن به سبد خرید</string>
     <string name="unKnown_error">خطای نا مشخص</string>
+    <string name="pageLogin">صفحه ورود به اپلیکیشن</string>
+    <string name="pageRegister">صفحه ثبت نام اپلیکیشن</string>
+    <string name="enterEmailAndPass">ایمیل و رمزعبور را وارد کنید</string>
+    <string name="email">ایمیل</string>
+    <string name="pass">رمزعبور</string>
+    <string name="noHaveAccount">اکانت کاربری ندارید؟</string>
+    <string name="haveAccount">حساب کاربری دارید؟</string>
+    <string name="login">ورود کنید</string>
+    <string name="register">ثبت نام کنید</string>
+    <string name="loginBtn">ورود</string>
+    <string name="registerBtn">ثبت نام</string>
 
     <string-array name="sortArray">
         <item>@string/sortLatest</item>

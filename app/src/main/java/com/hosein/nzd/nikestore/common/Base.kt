@@ -106,25 +106,26 @@ interface NikeView {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    fun showErrors(nikeException: NikeException){
+    fun showErrors(nikeException: NikeException) {
         viewContext?.let {
-            when(nikeException.type){
+            when (nikeException.type) {
                 NikeException.Type.SIMPLE -> {
-                    showSnackBar(nikeException.serverMessage ?: it.getString(nikeException.clientMessage) )
+                    showSnackBar(nikeException.serverMessage
+                        ?: it.getString(nikeException.clientMessage))
                 }
 
                 NikeException.Type.AUTH -> {
-                    it.startActivity(Intent(it , AuthActivity::class.java))
-                    Toast.makeText(it , nikeException.serverMessage , Toast.LENGTH_LONG).show()
+                    it.startActivity(Intent(it, AuthActivity::class.java))
+                    Toast.makeText(it, nikeException.serverMessage, Toast.LENGTH_SHORT).show()
                 }
                 else -> throw IllegalAccessException(it.getString(R.string.unKnown_error))
             }
         }
     }
 
-    fun showSnackBar(message:String , duration: Int = Snackbar.LENGTH_LONG){
+    fun showSnackBar(message: String, duration: Int = Snackbar.LENGTH_LONG) {
         rootView?.let {
-            Snackbar.make(it, message , duration).show()
+            Snackbar.make(it, message, duration).show()
         }
 
     }

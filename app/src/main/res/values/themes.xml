@@ -33,4 +33,14 @@
         <item name="myDivider">@color/black</item>
         <item name="myGray">@color/darkGray</item>
     </style>
+
+    <style name="page.auth.theme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+
+        <item name="android:statusBarColor" tools:targetApi="l">@color/black</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:background">@color/black</item>
+
+    </style>
+
 </resources>

@@ -19,7 +19,8 @@
         tools:targetApi="31">
         <activity
             android:name=".feature.auth.AuthActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/page.auth.theme"/>
         <activity
             android:name=".feature.main.productList.ProductListActivity"
             android:exported="false" />
