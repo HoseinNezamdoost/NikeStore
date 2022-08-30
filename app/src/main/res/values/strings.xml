@@ -30,6 +30,9 @@
     <string name="register">ثبت نام کنید</string>
     <string name="loginBtn">ورود</string>
     <string name="registerBtn">ثبت نام</string>
+    <string name="error_email_edt">ایمیل نباید خالی باشد</string>
+    <string name="error_pass_edt">رمزعبور نباید خالی باشد</string>
+    <string name="no_match_email">کلمه وارد شده ایمیل نیست!</string>
 
     <string-array name="sortArray">
         <item>@string/sortLatest</item>

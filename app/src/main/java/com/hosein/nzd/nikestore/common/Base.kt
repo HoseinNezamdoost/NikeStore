@@ -47,11 +47,16 @@ abstract class NikeActivity : AppCompatActivity(), NikeView {
         EventBus.getDefault().register(this)
     }
 
-    override fun onDestroy() {
+
+    override fun onStop() {
+        super.onStop()
         EventBus.getDefault().unregister(this)
-        super.onDestroy()
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        EventBus.getDefault().unregister(this)
+    }
 }
 
 abstract class NikeFragment : Fragment(), NikeView {
