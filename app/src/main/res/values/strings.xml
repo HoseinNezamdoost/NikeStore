@@ -33,6 +33,14 @@
     <string name="error_email_edt">ایمیل نباید خالی باشد</string>
     <string name="error_pass_edt">رمزعبور نباید خالی باشد</string>
     <string name="no_match_email">کلمه وارد شده ایمیل نیست!</string>
+    <string name="cart">سبد خرید</string>
+    <string name="count">تعداد</string>
+    <string name="removeFromCart">حذف از سبد خرید</string>
+    <string name="purchaseDetail">جزییات خرید</string>
+    <string name="totalPrice">مبلغ کل خرید</string>
+    <string name="shippingCost">هزینه ارسال</string>
+    <string name="payablePrice">مبلغ قابل پرداخت</string>
+    <string name="pay">پرداخت</string>
 
     <string-array name="sortArray">
         <item>@string/sortLatest</item>

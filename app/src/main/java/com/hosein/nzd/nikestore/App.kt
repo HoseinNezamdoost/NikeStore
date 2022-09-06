@@ -7,6 +7,7 @@ import com.facebook.drawee.backends.pipeline.Fresco
 import com.hosein.nzd.nikestore.data.repository.*
 import com.hosein.nzd.nikestore.data.repository.source.*
 import com.hosein.nzd.nikestore.feature.auth.AuthViewModel
+import com.hosein.nzd.nikestore.feature.cart.CartFragmentViewModel
 import com.hosein.nzd.nikestore.feature.main.MainProductAdapter
 import com.hosein.nzd.nikestore.feature.main.MainProductAdapterPopular
 import com.hosein.nzd.nikestore.feature.main.MainViewModel
@@ -48,6 +49,7 @@ class App : Application() {
             viewModel { (sort:Int) -> ProductCommentViewModel(sort , get()) }
             viewModel { (sort:Int) -> ProductListViewModel(sort , get())}
             viewModel { AuthViewModel(get()) }
+            viewModel { CartFragmentViewModel(get()) }
         }
 
         startKoin {

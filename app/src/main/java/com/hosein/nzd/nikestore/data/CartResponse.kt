@@ -8,3 +8,4 @@ data class CartResponse(
     val shipping_cost: Int,
     val total_price: Int
 )
+data class PerchesCart(var payable_price: Int, val shipping_cost: Int, var total_price: Int)

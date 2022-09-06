@@ -16,18 +16,23 @@ class CartRemoteDataSource(val apiService: ApiService) : CartDataSource {
     )
 
     override fun get(): Single<CartResponse> {
-        TODO("Not yet implemented")
+        return apiService.getCartListItem()
     }
 
     override fun remove(cartItemId: Int): Single<MessageResponse> {
-        TODO("Not yet implemented")
+        return apiService.removeFromCart(JsonObject().apply {
+            addProperty("cart_item_id" , cartItemId)
+        })
     }
 
     override fun changeCount(cartItemId: Int, count: Int): Single<AddToCartResponse> {
-        TODO("Not yet implemented")
+        return apiService.changeCartCount(JsonObject().apply {
+            addProperty("cart_item_id" , cartItemId)
+            addProperty("count" , count)
+        })
     }
 
     override fun getCartItemsCount(): Single<CartItemCount> {
-        TODO("Not yet implemented")
+        return apiService.getCartItemsCount()
     }
 }
