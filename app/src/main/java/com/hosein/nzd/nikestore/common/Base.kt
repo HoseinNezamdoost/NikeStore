@@ -17,6 +17,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.android.material.snackbar.Snackbar
 import com.hosein.nzd.nikestore.R
+import com.hosein.nzd.nikestore.data.EmptyState
 import com.hosein.nzd.nikestore.feature.auth.AuthActivity
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import org.greenrobot.eventbus.EventBus
@@ -126,6 +127,21 @@ interface NikeView {
                 else -> throw IllegalAccessException(it.getString(R.string.unKnown_error))
             }
         }
+    }
+
+    fun showEmptyState(emptyStateResId: Int): View? {
+        rootView?.let {
+            viewContext?.let { context ->
+                var emptyState = it.findViewById<View>(R.id.emptyStateRootView)
+                if (emptyState == null) {
+                    emptyState = LayoutInflater.from(context).inflate(emptyStateResId, it, false)
+                    it.addView(emptyState)
+                }
+                emptyState.visibility = View.VISIBLE
+                return emptyState
+            }
+        }
+        return null
     }
 
     fun showSnackBar(message: String, duration: Int = Snackbar.LENGTH_LONG) {

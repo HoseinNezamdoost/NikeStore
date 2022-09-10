@@ -1,12 +1,10 @@
 package com.hosein.nzd.nikestore.feature.cart
 
 import androidx.lifecycle.MutableLiveData
+import com.hosein.nzd.nikestore.R
 import com.hosein.nzd.nikestore.common.NikeSingleObservable
 import com.hosein.nzd.nikestore.common.NikeViewModel
-import com.hosein.nzd.nikestore.data.CartItem
-import com.hosein.nzd.nikestore.data.CartResponse
-import com.hosein.nzd.nikestore.data.PerchesCart
-import com.hosein.nzd.nikestore.data.TokenContainer
+import com.hosein.nzd.nikestore.data.*
 import com.hosein.nzd.nikestore.data.repository.CartRepository
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Completable
@@ -16,12 +14,14 @@ class CartFragmentViewModel(private val cartRepository: CartRepository) : NikeVi
 
     val cartItemLiveData = MutableLiveData<List<CartItem>>()
     val cartPerchesLiveData = MutableLiveData<PerchesCart>()
+    val cartEmptyStateLiveData = MutableLiveData<EmptyState>()
 
     private fun getCartList() {
 
         if (!TokenContainer.accessToken.isNullOrEmpty()) {
 
             progressBraLiveData.value = true
+            cartEmptyStateLiveData.value = EmptyState(false)
 
             cartRepository.get()
                 .subscribeOn(Schedulers.io())
@@ -33,36 +33,46 @@ class CartFragmentViewModel(private val cartRepository: CartRepository) : NikeVi
                             cartItemLiveData.value = t.cart_items
                             cartPerchesLiveData.value =
                                 PerchesCart(t.payable_price, t.shipping_cost, t.total_price)
-                        }
+                        } else
+                            cartEmptyStateLiveData.value = EmptyState(true, R.string.cartEmptyState)
                     }
                 })
 
+        } else {
+            cartEmptyStateLiveData.value = EmptyState(true, R.string.cartEmptyState, true)
         }
     }
 
-    fun removeCart(cartItem : CartItem): Completable {
+    fun removeCart(cartItem: CartItem): Completable {
         return cartRepository.remove(cartItem.cart_item_id)
-            .doAfterSuccess{calculatePerchesPrice()}
+            .doAfterSuccess {
+                calculatePerchesPrice()
+                cartItemLiveData.value?.let {
+                    if (it.isEmpty()) {
+                        cartEmptyStateLiveData.postValue(EmptyState(true, R.string.cartEmptyState))
+                    }
+                }
+            }
             .ignoreElement()
     }
 
-    fun increaseCartItemCount(cartItem : CartItem) : Completable{
-         return cartRepository.changeCount(cartItem.cart_item_id , ++cartItem.count)
-             .doAfterSuccess{calculatePerchesPrice()}
-             .ignoreElement()
-    }
-
-    fun decreaseCartItemCount(cartItem : CartItem):Completable{
-        return cartRepository.changeCount(cartItem.cart_item_id , --cartItem.count)
-            .doAfterSuccess{calculatePerchesPrice()}
+    fun increaseCartItemCount(cartItem: CartItem): Completable {
+        return cartRepository.changeCount(cartItem.cart_item_id, ++cartItem.count)
+            .doAfterSuccess { calculatePerchesPrice() }
             .ignoreElement()
     }
 
-    fun refresh(){
+    fun decreaseCartItemCount(cartItem: CartItem): Completable {
+        return cartRepository.changeCount(cartItem.cart_item_id, --cartItem.count)
+            .doAfterSuccess { calculatePerchesPrice() }
+            .ignoreElement()
+    }
+
+    fun refresh() {
         getCartList()
     }
 
-    private fun calculatePerchesPrice(){
+    private fun calculatePerchesPrice() {
         cartPerchesLiveData.value?.let { perchesCart ->
             var totalPrice = 0
             var payablePrice = 0

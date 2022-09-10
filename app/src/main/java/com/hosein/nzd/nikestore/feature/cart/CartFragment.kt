@@ -15,6 +15,7 @@ import com.hosein.nzd.nikestore.common.NikeCompletableObservable
 import com.hosein.nzd.nikestore.common.NikeFragment
 import com.hosein.nzd.nikestore.data.CartItem
 import com.hosein.nzd.nikestore.data.PerchesCart
+import com.hosein.nzd.nikestore.feature.auth.AuthActivity
 import com.hosein.nzd.nikestore.feature.main.productActivity.ProductDetailActivity
 import com.hosein.nzd.nikestore.services.loadImage.LoadImageService
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -22,6 +23,7 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_cart.*
 import kotlinx.android.synthetic.main.item_cart.*
+import kotlinx.android.synthetic.main.view_cart_empty_state.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -55,12 +57,26 @@ class CartFragment : NikeFragment(), CartFragmentAdapter.OnClickCartItemChild {
             cartItemsRv.adapter = adapter
         }
 
-        viewModel.cartPerchesLiveData.observe(viewLifecycleOwner) {perchesCart->
+        viewModel.cartPerchesLiveData.observe(viewLifecycleOwner) { perchesCart ->
             adapter.let {
                 it.perchesCart = perchesCart
                 adapter.notifyItemChanged(adapter.cartItems.size)
             }
         }
+
+        viewModel.cartEmptyStateLiveData.observe(viewLifecycleOwner) {
+            if (it.mustShow) {
+                val emptyState = showEmptyState(R.layout.view_cart_empty_state)
+                emptyState?.let {view->
+                    emptyStateMessageTv.text = getString(it.textEmptyState)
+                    emptyStateCtaBtn.visibility = if (it.mustShowCallToAction) View.VISIBLE else View.GONE
+                    emptyStateCtaBtn.setOnClickListener {
+                        startActivity(Intent(requireContext() , AuthActivity::class.java))
+                    }
+                }
+            }
+        }
+
     }
 
     override fun onStart() {
