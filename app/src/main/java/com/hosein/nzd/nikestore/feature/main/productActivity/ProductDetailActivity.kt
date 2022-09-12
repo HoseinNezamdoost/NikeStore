@@ -27,7 +27,7 @@ import org.koin.core.parameter.parametersOf
 
 class ProductDetailActivity : NikeActivity() {
 
-    val productDetailActivityViewModel : ProductDetailActivityViewModel by viewModel{parametersOf(intent.extras)}
+    val viewModel : ProductDetailActivityViewModel by viewModel{parametersOf(intent.extras)}
     val loadImageService : LoadImageService by inject()
     val adapterComment = ProductAdapterComment()
 
@@ -35,7 +35,7 @@ class ProductDetailActivity : NikeActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_product)
 
-        productDetailActivityViewModel.productLiveData.observe(this){
+        viewModel.productLiveData.observe(this){
             loadImageService.load(productIv , it.image)
             titleTv.text = it.title
             previousPriceTv.text = formatPrice(it.previous_price)
@@ -44,17 +44,17 @@ class ProductDetailActivity : NikeActivity() {
             toolbarTitleTv.text = it.title
         }
 
-        productDetailActivityViewModel.commentLiveData.observe(this){
+        viewModel.commentLiveData.observe(this){
             adapterComment.comments = it as ArrayList<Comment>
             if(it.size > 5) viewAllCommentsBtn.visibility= View.VISIBLE
             viewAllCommentsBtn.setOnClickListener {
                 startActivity(Intent(this , ProductActivityComment::class.java).apply {
-                    putExtra(EXTRA_PASS , productDetailActivityViewModel.productLiveData.value!!.id)
+                    putExtra(EXTRA_PASS , viewModel.productLiveData.value!!.id)
                 })
             }
         }
 
-        productDetailActivityViewModel.progressBraLiveData.observe(this){
+        viewModel.progressBraLiveData.observe(this){
             setProgressIndicator(it)
         }
 
@@ -85,10 +85,10 @@ class ProductDetailActivity : NikeActivity() {
         }
 
         addToCartBtn.setOnClickListener {
-            productDetailActivityViewModel.onClickAddToCart()
+            viewModel.onClickAddToCart()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(object : NikeCompletableObservable(productDetailActivityViewModel.disposable){
+                .subscribe(object : NikeCompletableObservable(viewModel.disposable){
                     override fun onComplete() {
                         Snackbar.make(rootView as CoordinatorLayout , "این محصول به سبد خرید اضافه شد" , Snackbar.LENGTH_LONG).show()
                     }
@@ -99,7 +99,7 @@ class ProductDetailActivity : NikeActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        productDetailActivityViewModel.disposable.clear()
+        viewModel.disposable.clear()
     }
 
 }

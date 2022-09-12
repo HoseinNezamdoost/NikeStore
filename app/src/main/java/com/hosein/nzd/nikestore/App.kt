@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.SharedPreferences
 import android.os.Bundle
 import com.facebook.drawee.backends.pipeline.Fresco
+import com.hosein.nzd.nikestore.common.BadgeViewModel
 import com.hosein.nzd.nikestore.data.repository.*
 import com.hosein.nzd.nikestore.data.repository.source.*
 import com.hosein.nzd.nikestore.feature.auth.AuthViewModel
@@ -50,6 +51,7 @@ class App : Application() {
             viewModel { (sort:Int) -> ProductListViewModel(sort , get())}
             viewModel { AuthViewModel(get()) }
             viewModel { CartFragmentViewModel(get()) }
+            viewModel { BadgeViewModel(get()) }
         }
 
         startKoin {
