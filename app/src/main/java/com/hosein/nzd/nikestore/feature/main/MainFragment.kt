@@ -3,12 +3,10 @@ package com.hosein.nzd.nikestore.feature.main
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.widget.addTextChangedListener
+import androidx.core.widget.doOnTextChanged
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
@@ -27,6 +25,7 @@ import kotlinx.coroutines.Runnable
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
+import java.util.*
 import kotlin.collections.ArrayList
 
 class MainFragment : NikeFragment() , MainProductAdapter.OnProductListClickListener , MainProductAdapterPopular.OnClickProductPopular {
@@ -119,6 +118,50 @@ class MainFragment : NikeFragment() , MainProductAdapter.OnProductListClickListe
             })
         }
 
+        filterRecyclerView()
+
+    }
+
+    fun filterRecyclerView(){
+        edt_search_main.doOnTextChanged { text, _, _, _ ->
+            val query = text.toString().toLowerCase(Locale.getDefault())
+            filterQuery(query)
+        }
+    }
+
+    fun filterQuery(query:String){
+        if (query.isNotEmpty()){
+            val filteredListLast = onListChangeLast(query)
+            val filteredListPopular = onListChangePopular(query)
+            mainProductAdapter.productsLast = filteredListLast
+            mainProductAdapterPopular.products = filteredListPopular
+        }else{
+            mainProductAdapter.productsLast = mainViewModel.productLiveDataLast.value as ArrayList<Product>
+            mainProductAdapterPopular.products = mainViewModel.productLiveDataPopular.value as ArrayList<Product>
+        }
+
+    }
+
+    fun onListChangeLast(filterQuery:String):ArrayList<Product>{
+        val filterList = ArrayList<Product>()
+        for (currentItem in mainProductAdapter.productsLast){
+            if (currentItem.title.toLowerCase(Locale.getDefault()).contains(filterQuery)){
+                filterList.add(currentItem)
+            }
+        }
+
+        return filterList
+    }
+
+    fun onListChangePopular(filterQuery:String):ArrayList<Product>{
+        val filterList = ArrayList<Product>()
+        for (currentItem in mainProductAdapterPopular.products){
+            if (currentItem.title.toLowerCase(Locale.getDefault()).contains(filterQuery)){
+                filterList.add(currentItem)
+            }
+        }
+
+        return filterList
     }
 
     //for remove (shutdown) slider
