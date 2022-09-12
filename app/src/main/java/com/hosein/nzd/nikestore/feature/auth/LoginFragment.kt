@@ -47,6 +47,11 @@ class LoginFragment : Fragment() {
                             override fun onComplete() {
                                 (requireActivity() as AuthActivity).finish()
                             }
+
+                            override fun onError(e: Throwable) {
+                                super.onError(e)
+                                Toast.makeText(requireContext(), "ایمیل یا رمز عبور معتبر نیست!", Toast.LENGTH_LONG).show()
+                            }
                         })
                 }else{
                     emailEdt.setError(getString(R.string.no_match_email))
