@@ -7,6 +7,7 @@
     android:clipToPadding="false"
     android:orientation="vertical"
     android:paddingTop="16dp"
+    android:layoutDirection="rtl"
     android:paddingBottom="16dp">
 
     <TextView

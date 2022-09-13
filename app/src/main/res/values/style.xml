@@ -10,4 +10,14 @@
         <item name="fontFamily">@font/yekan_bold</item>
         <item name="android:fontFamily">@font/yekan_bold</item>
     </style>
+
+    <style name="ShippingTextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="android:layout_marginStart">16dp</item>
+        <item name="android:layout_marginEnd">16dp</item>
+        <item name="android:layout_marginTop">8dp</item>
+    </style>
+
+    <style name="ShippingTextInputEditTextStyle" parent="Theme.NikeStore">
+        <item name="android:textSize">14sp</item>
+    </style>
 </resources>

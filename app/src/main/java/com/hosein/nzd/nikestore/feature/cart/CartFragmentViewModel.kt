@@ -13,7 +13,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 class CartFragmentViewModel(private val cartRepository: CartRepository) : NikeViewModel() {
 
     val cartItemLiveData = MutableLiveData<List<CartItem>>()
-    val cartPerchesLiveData = MutableLiveData<PerchesCart>()
+    val cartPerchesLiveData = MutableLiveData<PerchesDetail>()
     val cartEmptyStateLiveData = MutableLiveData<EmptyState>()
 
     private fun getCartList() {
@@ -32,7 +32,7 @@ class CartFragmentViewModel(private val cartRepository: CartRepository) : NikeVi
                         if (t.cart_items.isNotEmpty()) {
                             cartItemLiveData.value = t.cart_items
                             cartPerchesLiveData.value =
-                                PerchesCart(t.payable_price, t.shipping_cost, t.total_price)
+                                PerchesDetail(t.payable_price, t.shipping_cost, t.total_price)
                         } else
                             cartEmptyStateLiveData.value = EmptyState(true, R.string.cartEmptyState)
                     }
