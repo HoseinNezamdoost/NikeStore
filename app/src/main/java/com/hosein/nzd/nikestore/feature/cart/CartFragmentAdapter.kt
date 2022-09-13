@@ -2,14 +2,13 @@ package com.hosein.nzd.nikestore.feature.cart
 
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.inflate
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.hosein.nzd.nikestore.R
 import com.hosein.nzd.nikestore.common.formatPrice
 import com.hosein.nzd.nikestore.common.implementSpringAnimationTrait
 import com.hosein.nzd.nikestore.data.CartItem
-import com.hosein.nzd.nikestore.data.PerchesCart
+import com.hosein.nzd.nikestore.data.PerchesDetail
 import com.hosein.nzd.nikestore.services.loadImage.LoadImageService
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_cart.view.*
@@ -24,7 +23,7 @@ class CartFragmentAdapter(
     val onClickCartItemChild: OnClickCartItemChild,
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    var perchesCart: PerchesCart? = null
+    var perchesCart: PerchesDetail? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
@@ -123,9 +122,9 @@ class CartFragmentAdapter(
         }
     }
 
-    inner class CartPerchesViewHolder(override val containerView: View) :
+    class CartPerchesViewHolder(override val containerView: View) :
         RecyclerView.ViewHolder(containerView), LayoutContainer {
-        fun bindPerchesItem(perchesCart: PerchesCart) {
+        fun bindPerchesItem(perchesCart: PerchesDetail) {
             containerView.totalPriceTv.text = formatPrice(perchesCart.total_price)
             containerView.shippingCostTv.text = formatPrice(perchesCart.shipping_cost)
             containerView.payablePriceTv.text = formatPrice(perchesCart.payable_price)
