@@ -9,6 +9,7 @@ import com.hosein.nzd.nikestore.data.repository.*
 import com.hosein.nzd.nikestore.data.repository.source.*
 import com.hosein.nzd.nikestore.feature.auth.AuthViewModel
 import com.hosein.nzd.nikestore.feature.cart.CartFragmentViewModel
+import com.hosein.nzd.nikestore.feature.cart.shipping.ShippingViewModel
 import com.hosein.nzd.nikestore.feature.main.MainProductAdapter
 import com.hosein.nzd.nikestore.feature.main.MainProductAdapterPopular
 import com.hosein.nzd.nikestore.feature.main.MainViewModel
@@ -38,6 +39,7 @@ class App : Application() {
             single { createApiServiceInstance() }
             single <LoadImageService>{ FrescoLoadImageService() }
             single { UserLocalDataSource(get()) }
+            factory <SubmitOrderRepository>{ SubmitOrderRepositoryImpl(SubmitRemoteDataSource(get())) }
             factory <ProductRepository> { ProductRepositoryImpl(ProductRemoteDataSource(get()) , ProductLocalDataSource()) }
             factory <BannerRepository>{ BannerRepositoryImpl(BannerRemoteDataSource(get())) }
             factory <CommentRepository>{ CommentRepositoryImpl(CommentRemoteDataSource(get())) }
@@ -52,6 +54,7 @@ class App : Application() {
             viewModel { AuthViewModel(get()) }
             viewModel { CartFragmentViewModel(get()) }
             viewModel { BadgeViewModel(get()) }
+            viewModel { ShippingViewModel(get()) }
         }
 
         startKoin {

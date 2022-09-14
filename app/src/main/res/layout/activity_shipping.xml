@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".feature.shipping.ShippingActivity">
+    tools:context=".feature.cart.shipping.ShippingActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -105,7 +105,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/address"
-                    android:text="گیلان - رشت - آزادگان ..........................................................." />
+                    android:text="گیلان - رشت - آزادگان" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <include
@@ -128,12 +128,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
+                    android:onClick="onClickSubmit"
                     android:text="@string/cashOnDelivery" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/onlinePaymentBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:onClick="onClickSubmit"
                     android:layout_marginStart="8dp"
                     android:text="@string/onlinePayment" />
             </LinearLayout>

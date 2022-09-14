@@ -12,10 +12,9 @@ import com.hosein.nzd.nikestore.common.EXTRA_KEY_ID
 import com.hosein.nzd.nikestore.common.NikeCompletableObservable
 import com.hosein.nzd.nikestore.common.NikeFragment
 import com.hosein.nzd.nikestore.data.CartItem
-import com.hosein.nzd.nikestore.data.PerchesDetail
 import com.hosein.nzd.nikestore.feature.auth.AuthActivity
 import com.hosein.nzd.nikestore.feature.main.productActivity.ProductDetailActivity
-import com.hosein.nzd.nikestore.feature.shipping.ShippingActivity
+import com.hosein.nzd.nikestore.feature.cart.shipping.ShippingActivity
 import com.hosein.nzd.nikestore.services.loadImage.LoadImageService
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable

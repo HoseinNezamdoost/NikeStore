@@ -24,16 +24,16 @@ interface ApiService {
     fun addToCart(@Body jsonObject: JsonObject): Single<AddToCartResponse>
 
     @POST("cart/remove")
-    fun removeFromCart(@Body jsonObject: JsonObject):Single<MessageResponse>
+    fun removeFromCart(@Body jsonObject: JsonObject): Single<MessageResponse>
 
     @POST("cart/changeCount")
-    fun changeCartCount(@Body jsonObject: JsonObject):Single<AddToCartResponse>
+    fun changeCartCount(@Body jsonObject: JsonObject): Single<AddToCartResponse>
 
     @GET("cart/count")
-    fun getCartItemsCount() : Single<CartItemCount>
+    fun getCartItemsCount(): Single<CartItemCount>
 
     @GET("cart/list")
-    fun getCartListItem():Single<CartResponse>
+    fun getCartListItem(): Single<CartResponse>
 
     @POST("auth/token")
     fun login(@Body jsonObject: JsonObject): Single<TokenResponse>
@@ -43,6 +43,12 @@ interface ApiService {
 
     @POST("auth/token")
     fun refreshToken(@Body jsonObject: JsonObject): Call<TokenResponse>
+
+    @POST("order/submit")
+    fun submit(@Body() jsonObject: JsonObject): Single<SubmitOrderResult>
+
+    @GET("order/checkout")
+    fun checkout(@Query("order_id") orderId: Int): Single<Checkout>
 }
 
 fun createApiServiceInstance(): ApiService {
@@ -52,7 +58,7 @@ fun createApiServiceInstance(): ApiService {
         val newRequest = oldRequest.newBuilder()
         if (TokenContainer.accessToken != null) {
             newRequest.addHeader("Authorization", "Bearer ${TokenContainer.accessToken}")
-            newRequest.method(oldRequest.method() , oldRequest.body())
+            newRequest.method(oldRequest.method(), oldRequest.body())
         }
         return@addInterceptor it.proceed(newRequest.build())
     }.build()
