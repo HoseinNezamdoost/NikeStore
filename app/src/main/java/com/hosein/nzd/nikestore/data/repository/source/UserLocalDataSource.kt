@@ -20,14 +20,29 @@ class UserLocalDataSource(private val sharedPreferences: SharedPreferences) : Us
     }
 
     override fun loadToken() {
-        TokenContainer.update(sharedPreferences.getString(access_token , null) , sharedPreferences.getString(
-            refresh_token , null))
+        TokenContainer.update(sharedPreferences.getString(access_token, null),
+            sharedPreferences.getString(
+                refresh_token, null))
     }
 
     override fun saveToken(accessToken: String, refreshToken: String) {
         sharedPreferences.edit().apply {
-            putString(access_token , accessToken)
-            putString(refresh_token , refreshToken)
+            putString(access_token, accessToken)
+            putString(refresh_token, refreshToken)
+        }.apply()
+    }
+
+    override fun saveUsername(username: String) {
+        sharedPreferences.edit().apply {
+            putString("username", username)
+        }.apply()
+    }
+
+    override fun getUsername(): String = sharedPreferences.getString("username", "") ?: ""
+
+    override fun signOut() {
+        sharedPreferences.edit().apply {
+            clear()
         }.apply()
     }
 }
