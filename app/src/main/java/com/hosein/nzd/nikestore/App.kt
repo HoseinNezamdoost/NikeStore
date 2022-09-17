@@ -10,6 +10,7 @@ import com.hosein.nzd.nikestore.data.repository.source.*
 import com.hosein.nzd.nikestore.feature.auth.AuthViewModel
 import com.hosein.nzd.nikestore.feature.cart.CartFragmentViewModel
 import com.hosein.nzd.nikestore.feature.cart.shipping.ShippingViewModel
+import com.hosein.nzd.nikestore.feature.cart.shipping.checkout.CheckoutViewModel
 import com.hosein.nzd.nikestore.feature.main.MainProductAdapter
 import com.hosein.nzd.nikestore.feature.main.MainProductAdapterPopular
 import com.hosein.nzd.nikestore.feature.main.MainViewModel
@@ -55,6 +56,7 @@ class App : Application() {
             viewModel { CartFragmentViewModel(get()) }
             viewModel { BadgeViewModel(get()) }
             viewModel { ShippingViewModel(get()) }
+            viewModel {(orderId:Int) -> CheckoutViewModel(orderId , get()) }
         }
 
         startKoin {
