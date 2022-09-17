@@ -17,6 +17,7 @@ import com.hosein.nzd.nikestore.feature.main.MainViewModel
 import com.hosein.nzd.nikestore.feature.main.productActivity.ProductDetailActivityViewModel
 import com.hosein.nzd.nikestore.feature.main.productActivity.comment.ProductCommentViewModel
 import com.hosein.nzd.nikestore.feature.main.productList.ProductListViewModel
+import com.hosein.nzd.nikestore.feature.profile.ProfileViewModel
 import com.hosein.nzd.nikestore.services.http.createApiServiceInstance
 import com.hosein.nzd.nikestore.services.loadImage.FrescoLoadImageService
 import com.hosein.nzd.nikestore.services.loadImage.LoadImageService
@@ -57,6 +58,7 @@ class App : Application() {
             viewModel { BadgeViewModel(get()) }
             viewModel { ShippingViewModel(get()) }
             viewModel {(orderId:Int) -> CheckoutViewModel(orderId , get()) }
+            viewModel { ProfileViewModel(get()) }
         }
 
         startKoin {

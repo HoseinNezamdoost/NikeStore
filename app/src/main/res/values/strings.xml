@@ -57,6 +57,10 @@
     <string name="onlinePayment">پرداخت اینترنتی</string>
     <string name="cashOnDelivery">پرذاخت در محل</string>
     <string name="shippingToolbarTitle">انتخاب تحویل گیرنده و شیوه پرداخت</string>
+    <string name="favorites">لیست علاقه مندی ها</string>
+    <string name="signIn">ورود به حساب کاربری</string>
+    <string name="signOut">خروج از حساب کاربری</string>
+    <string name="guest_user">کاربر مهمان</string>
 
     <string-array name="sortArray">
         <item>@string/sortLatest</item>

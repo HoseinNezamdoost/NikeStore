@@ -11,18 +11,19 @@ class UserRepositoryImpl(
     private val userLocalDataSource: UserLocalDataSource,
 ) : UserRepository {
 
-
     override fun login(email: String, password: String): Completable {
-        return userRemoteDataSource.login(email , password).doOnSuccess{
+        return userRemoteDataSource.login(email, password).doOnSuccess {
             onDoSuccess(it)
+            saveUsername(email)
         }.ignoreElement()
     }
 
     override fun register(email: String, password: String): Completable {
         return userRemoteDataSource.register(email, password).flatMap {
-            userRemoteDataSource.login(email , password)
-        }.doOnSuccess{
+            userRemoteDataSource.login(email, password)
+        }.doOnSuccess {
             onDoSuccess(it)
+            saveUsername(email)
         }.ignoreElement()
     }
 
@@ -30,9 +31,18 @@ class UserRepositoryImpl(
         userLocalDataSource.loadToken()
     }
 
-    private fun onDoSuccess(tokenResponse: TokenResponse){
-        TokenContainer.update(tokenResponse.access_token , tokenResponse.refresh_token)
-        userLocalDataSource.saveToken(tokenResponse.access_token , tokenResponse.refresh_token)
+    override fun getUsername(): String = userLocalDataSource.getUsername()
+
+    override fun saveUsername(username: String) = userLocalDataSource.saveUsername(username)
+
+    override fun signOut() {
+        userLocalDataSource.signOut()
+        TokenContainer.update(null , null)
+    }
+
+    private fun onDoSuccess(tokenResponse: TokenResponse) {
+        TokenContainer.update(tokenResponse.access_token, tokenResponse.refresh_token)
+        userLocalDataSource.saveToken(tokenResponse.access_token, tokenResponse.refresh_token)
     }
 
 }
