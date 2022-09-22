@@ -5,9 +5,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.hosein.nzd.nikestore.R
 import com.hosein.nzd.nikestore.common.NikeFragment
 import com.hosein.nzd.nikestore.feature.auth.AuthActivity
+import com.hosein.nzd.nikestore.feature.profile.favorite.FavoriteActivity
 import kotlinx.android.synthetic.main.fragment_profile.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -21,6 +23,19 @@ class ProfileFragment: NikeFragment() {
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_profile,container,false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        orderRecorde.setOnClickListener {
+            Toast.makeText(requireContext(), "این بخش درحال توسعه است", Toast.LENGTH_SHORT).show()
+        }
+
+        favoriteList.setOnClickListener {
+            startActivity(Intent(requireContext() , FavoriteActivity::class.java))
+        }
+
     }
 
     override fun onResume() {

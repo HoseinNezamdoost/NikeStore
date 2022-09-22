@@ -61,6 +61,8 @@
     <string name="signIn">ورود به حساب کاربری</string>
     <string name="signOut">خروج از حساب کاربری</string>
     <string name="guest_user">کاربر مهمان</string>
+    <string name="emptyStateFavorite">هنوز چیزی به لیست علاقمندی اضافه نکردی</string>
+    <string name="helpFavorite">برای حذف کردن ایتم دست خود را روی ان نگه دارید</string>
 
     <string-array name="sortArray">
         <item>@string/sortLatest</item>

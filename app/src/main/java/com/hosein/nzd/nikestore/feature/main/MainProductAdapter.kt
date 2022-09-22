@@ -12,6 +12,7 @@ import com.hosein.nzd.nikestore.common.implementSpringAnimationTrait
 import com.hosein.nzd.nikestore.data.Product
 import com.hosein.nzd.nikestore.services.loadImage.LoadImageService
 import com.hosein.nzd.nikestore.view.NikeImageView
+import kotlinx.android.synthetic.main.item_product.view.*
 
 const val VIEW_TYPE_ROUND = 0
 const val VIEW_TYPE_SMALL = 1
@@ -46,6 +47,11 @@ class MainProductAdapter(var viewType: Int = VIEW_TYPE_ROUND, val loadImageServi
             itemView.setOnClickListener {
                 onProductListClickListener?.onClick(product)
             }
+
+            itemView.favoriteBtn.setOnClickListener {
+                onProductListClickListener?.onFavoriteClick(product)
+            }
+
         }
 
     }
@@ -72,5 +78,6 @@ class MainProductAdapter(var viewType: Int = VIEW_TYPE_ROUND, val loadImageServi
 
     interface OnProductListClickListener{
         fun onClick(product: Product)
+        fun onFavoriteClick(product: Product)
     }
 }
