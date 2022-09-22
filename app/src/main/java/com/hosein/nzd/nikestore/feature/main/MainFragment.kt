@@ -30,7 +30,7 @@ import kotlin.collections.ArrayList
 
 class MainFragment : NikeFragment() , MainProductAdapter.OnProductListClickListener , MainProductAdapterPopular.OnClickProductPopular {
 
-    private val mainViewModel: MainViewModel by viewModel()
+    private val viewModle: MainViewModel by viewModel()
     val mainProductAdapter :MainProductAdapter by inject{ parametersOf(VIEW_TYPE_ROUND)}
     val mainProductAdapterPopular :MainProductAdapterPopular by inject()
     val handler = Handler()
@@ -58,17 +58,17 @@ class MainFragment : NikeFragment() , MainProductAdapter.OnProductListClickListe
         lastProduct_rc.adapter = mainProductAdapter
 
         //for observe popular product
-        mainViewModel.productLiveDataPopular.observe(viewLifecycleOwner){
+        viewModle.productLiveDataPopular.observe(viewLifecycleOwner){
             mainProductAdapterPopular.products = it as ArrayList<Product>
         }
 
         //for observe last product
-        mainViewModel.productLiveDataLast.observe(viewLifecycleOwner) {
+        viewModle.productLiveDataLast.observe(viewLifecycleOwner) {
             mainProductAdapter.productsLast = it as ArrayList<Product>
         }
 
         //for observe banner data
-        mainViewModel.bannerLiveData.observe(viewLifecycleOwner) {
+        viewModle.bannerLiveData.observe(viewLifecycleOwner) {
 
             val mainBannerAdapter = MainBannerAdapter(this, it)
             sliderViewPager.adapter = mainBannerAdapter
@@ -101,7 +101,7 @@ class MainFragment : NikeFragment() , MainProductAdapter.OnProductListClickListe
         }
 
         //for observe on progressBar witch loading or no loading
-        mainViewModel.progressBraLiveData.observe(viewLifecycleOwner) {
+        viewModle.progressBraLiveData.observe(viewLifecycleOwner) {
             setProgressIndicator(it)
         }
 
@@ -136,8 +136,8 @@ class MainFragment : NikeFragment() , MainProductAdapter.OnProductListClickListe
             mainProductAdapter.productsLast = filteredListLast
             mainProductAdapterPopular.products = filteredListPopular
         }else{
-            mainProductAdapter.productsLast = mainViewModel.productLiveDataLast.value as ArrayList<Product>
-            mainProductAdapterPopular.products = mainViewModel.productLiveDataPopular.value as ArrayList<Product>
+            mainProductAdapter.productsLast = viewModle.productLiveDataLast.value as ArrayList<Product>
+            mainProductAdapterPopular.products = viewModle.productLiveDataPopular.value as ArrayList<Product>
         }
 
     }
@@ -181,6 +181,10 @@ class MainFragment : NikeFragment() , MainProductAdapter.OnProductListClickListe
         startActivity(Intent(requireContext() , ProductDetailActivity::class.java).apply {
             putExtra(EXTRA_KEY_ID , product)
         })
+    }
+
+    override fun onFavoriteClick(product: Product) {
+        viewModle.insert(product)
     }
 
     override fun onClickProductPopular(product: Product) {

@@ -3,8 +3,10 @@ package com.hosein.nzd.nikestore
 import android.app.Application
 import android.content.SharedPreferences
 import android.os.Bundle
+import androidx.room.Room
 import com.facebook.drawee.backends.pipeline.Fresco
 import com.hosein.nzd.nikestore.common.BadgeViewModel
+import com.hosein.nzd.nikestore.data.AppDatabase
 import com.hosein.nzd.nikestore.data.repository.*
 import com.hosein.nzd.nikestore.data.repository.source.*
 import com.hosein.nzd.nikestore.feature.auth.AuthViewModel
@@ -18,6 +20,8 @@ import com.hosein.nzd.nikestore.feature.main.productActivity.ProductDetailActivi
 import com.hosein.nzd.nikestore.feature.main.productActivity.comment.ProductCommentViewModel
 import com.hosein.nzd.nikestore.feature.main.productList.ProductListViewModel
 import com.hosein.nzd.nikestore.feature.profile.ProfileViewModel
+import com.hosein.nzd.nikestore.feature.profile.favorite.FavoriteAdapter
+import com.hosein.nzd.nikestore.feature.profile.favorite.FavoriteViewModel
 import com.hosein.nzd.nikestore.services.http.createApiServiceInstance
 import com.hosein.nzd.nikestore.services.loadImage.FrescoLoadImageService
 import com.hosein.nzd.nikestore.services.loadImage.LoadImageService
@@ -41,8 +45,9 @@ class App : Application() {
             single { createApiServiceInstance() }
             single <LoadImageService>{ FrescoLoadImageService() }
             single { UserLocalDataSource(get()) }
+            single { Room.databaseBuilder(this@App , AppDatabase::class.java, "product").build() }
             factory <SubmitOrderRepository>{ SubmitOrderRepositoryImpl(SubmitRemoteDataSource(get())) }
-            factory <ProductRepository> { ProductRepositoryImpl(ProductRemoteDataSource(get()) , ProductLocalDataSource()) }
+            factory <ProductRepository> { ProductRepositoryImpl(ProductRemoteDataSource(get()) , get<AppDatabase>().getDao() , get()) }
             factory <BannerRepository>{ BannerRepositoryImpl(BannerRemoteDataSource(get())) }
             factory <CommentRepository>{ CommentRepositoryImpl(CommentRemoteDataSource(get())) }
             factory <CartRepository>{ CartRepositoryImpl(CartRemoteDataSource(get())) }
@@ -59,6 +64,7 @@ class App : Application() {
             viewModel { ShippingViewModel(get()) }
             viewModel {(orderId:Int) -> CheckoutViewModel(orderId , get()) }
             viewModel { ProfileViewModel(get()) }
+            viewModel { FavoriteViewModel(get()) }
         }
 
         startKoin {

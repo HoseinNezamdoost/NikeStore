@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.hosein.nzd.nikestore" >
+    package="com.hosein.nzd.nikestore">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -16,17 +16,20 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NikeStore"
         android:usesCleartextTraffic="true"
-        tools:targetApi="31" >
+        tools:targetApi="31">
+        <activity
+            android:name=".feature.profile.favorite.FavoriteActivity"
+            android:exported="false" />
         <activity
             android:name=".feature.cart.shipping.checkout.CheckoutActivity"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
 
-                <action android:name="android.intent.action.VIEW"/>
-                <data android:scheme="nike"/>
-                <category android:name="android.intent.category.BROWSABLE"/>
-                <category android:name="android.intent.category.DEFAULT"/>
+                <data android:scheme="nike" />
 
+                <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
@@ -46,7 +49,7 @@
             android:exported="false" />
         <activity
             android:name=".feature.main.MainActivity"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

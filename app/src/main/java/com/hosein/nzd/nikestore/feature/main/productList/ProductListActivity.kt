@@ -88,4 +88,8 @@ class ProductListActivity : NikeActivity() , MainProductAdapter.OnProductListCli
             putExtra(EXTRA_KEY_ID , product)
         })
     }
+
+    override fun onFavoriteClick(product: Product) {
+        TODO("Not yet implemented")
+    }
 }
