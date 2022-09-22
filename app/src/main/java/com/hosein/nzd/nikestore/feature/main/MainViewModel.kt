@@ -24,8 +24,9 @@ class MainViewModel(val productRepository: ProductRepository, bannerRepository: 
     init {
 
         progressBraLiveData.value = true
-        productLiveDataLast = NikeMainGetProduct(productRepository , SORT_LAST).getProductWithSort()
-        productLiveDataPopular = NikeMainGetProduct(productRepository , SORT_POPULAR).getProductWithSort()
+        productLiveDataLast = NikeMainGetProduct(productRepository, SORT_LAST).getProductWithSort()
+        productLiveDataPopular =
+            NikeMainGetProduct(productRepository, SORT_POPULAR).getProductWithSort()
 
         bannerRepository.getBanners()
             .subscribeOn(Schedulers.io())
@@ -39,15 +40,28 @@ class MainViewModel(val productRepository: ProductRepository, bannerRepository: 
 
     }
 
-    fun insert(product: Product){
-        productRepository.addToFavorite(product)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : NikeCompletableObservable(disposable){
-                override fun onComplete() {
-                    Log.i("TAG", "onComplete: insert")
-                }
-            })
+    fun addToFavorite(product: Product) {
+
+        if (product.isFavorite) {
+            productRepository.addToFavorite(product)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(object : NikeCompletableObservable(disposable) {
+                    override fun onComplete() {
+                        Log.i("TAG", "onComplete: insert")
+                    }
+                })
+        } else {
+            productRepository.deleteFromFavorite(product)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(object : NikeCompletableObservable(disposable) {
+                    override fun onComplete() {
+                        Log.i("TAG", "onComplete: delete")
+                    }
+                })
+        }
+
     }
 
 }

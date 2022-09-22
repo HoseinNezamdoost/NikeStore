@@ -13,7 +13,17 @@ class ProductRepositoryImpl(
     private val appDatabase: AppDatabase
 ) : ProductRepository {
 
-    override fun getProduct(sort : Int): Single<List<Product>> = productDataSource.getProduct(sort)
+    override fun getProduct(sort : Int): Single<List<Product>> = productLocalDataSource.getFavoriteProduct()
+        .flatMap { listFavorite ->
+            productDataSource.getProduct(sort).doOnSuccess { listProduct ->
+                val favoriteProductId = listFavorite.map { it.id }
+                listProduct.forEach {
+                    if (favoriteProductId.contains(it.id)){
+                        it.isFavorite = true
+                    }
+                }
+            }
+        }
 
     override fun getFavoriteProduct(): Single<List<Product>> {
         return appDatabase.getDao().getFavoriteProduct()

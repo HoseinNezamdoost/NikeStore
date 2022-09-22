@@ -48,8 +48,15 @@ class MainProductAdapter(var viewType: Int = VIEW_TYPE_ROUND, val loadImageServi
                 onProductListClickListener?.onClick(product)
             }
 
+            if (product.isFavorite)
+                itemView.favoriteBtn.setImageResource(R.drawable.ic_favorite_fill)
+            else
+                itemView.favoriteBtn.setImageResource(R.drawable.ic_favorites)
+
             itemView.favoriteBtn.setOnClickListener {
+                product.isFavorite = !product.isFavorite
                 onProductListClickListener?.onFavoriteClick(product)
+                notifyItemChanged(adapterPosition)
             }
 
         }
