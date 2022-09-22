@@ -16,7 +16,9 @@ data class Product(
     var price: Int,
     var status: Int,
     var title: String
-):Parcelable
+):Parcelable{
+    var isFavorite = false
+}
 
 const val SORT_LAST = 0
 const val SORT_POPULAR = 1

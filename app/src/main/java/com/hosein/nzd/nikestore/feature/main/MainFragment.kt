@@ -184,7 +184,7 @@ class MainFragment : NikeFragment() , MainProductAdapter.OnProductListClickListe
     }
 
     override fun onFavoriteClick(product: Product) {
-        viewModle.insert(product)
+        viewModle.addToFavorite(product)
     }
 
     override fun onClickProductPopular(product: Product) {
